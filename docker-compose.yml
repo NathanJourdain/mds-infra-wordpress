@@ -9,6 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
+      - ./backup:/var/backup
     healthcheck:
       test:
         [
@@ -42,7 +43,7 @@ services:
       WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       WORDPRESS_TABLE_PREFIX: ${WP_TABLE_PREFIX:-wp_}
     volumes:
-      - uploads_data:/var/www/html/wp-content/uploads
+      - ./backup:/var/backup
     depends_on:
       db:
         condition: service_healthy
